@@ -1,0 +1,72 @@
+Program' -> Program
+Program -> Decls
+Decls -> Decl
+Decls -> Decl Decls
+Decl -> VariableDecl
+VariableDecl -> Variable ;
+Decl -> FunctionDecl
+Variable -> Type ident
+Type -> int
+Type -> double
+Type -> bool
+Type -> string
+Type -> Type []
+FunctionDecl -> Type ident ( Formals ) StmtBlock
+FunctionDecl -> void ident ( Formals ) StmtBlock
+Formals -> Variable
+Formals -> Variable , Formals
+Formals -> ''
+StmtBlock -> { VariableDecls Stmts }
+VariableDecls -> VariableDecl
+VariableDecls -> VariableDecl VariableDecls
+VariableDecls -> ''
+Stmts -> Stmt
+Stmts -> Stmt Stmts
+Stmts -> ''
+Stmt -> IfStmt
+Stmt -> WhileStmt
+Stmt -> ForStmt
+Stmt -> ReturnStmt
+Stmt -> PrintStmt
+Stmt -> StmtBlock
+IfStmt -> if ( Expr ) Stmt
+IfStmt -> if ( Expr ) Stmt else Stmt
+WhileStmt -> while ( Expr ) Stmt
+ForStmt -> for ( E ; Expr ; E ) Stmt
+E -> Expr
+E -> ''
+ReturnStmt -> return E ;
+PrintStmt -> print ( ExprList ) ;
+Expr -> LValue = Expr
+Expr -> Constant
+Expr -> LValue
+Expr -> ( Expr )
+Expr -> Expr + Expr
+Expr -> Expr - Expr
+Expr -> Expr * Expr
+Expr -> Expr / Expr
+Expr -> - Expr
+Expr -> Expr < Expr
+Expr -> Expr <= Expr
+Expr -> Expr > Expr
+Expr -> Expr >= Expr
+Expr -> Expr == Expr
+Expr -> Expr != Expr
+Expr -> Expr && Expr
+Expr -> Expr || Expr
+Expr -> ! Expr
+Expr -> Call
+Expr -> ReadInteger
+Expr -> ReadLine ( )
+LValue -> ident
+LValue -> Expr [ Expr ]
+Call -> ident ( Actuals )
+Actuals -> ExprList
+Actuals -> ''
+ExprList -> Expr
+ExprList -> Expr , ExprList
+ExprList -> ''
+Constant -> intConstant
+Constant -> doubleConstant
+Constant -> boolConstant
+Constant -> stringConstant
