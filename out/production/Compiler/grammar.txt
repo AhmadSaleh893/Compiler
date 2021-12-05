@@ -1,0 +1,33 @@
+Program' -> Program
+Program ->  Decls
+Decls ->  Decl
+Decls ->  Decl Decls
+Decl -> VariableDecl
+Decl ->  FunctionDecl
+VariableDecl->  Type ident ;
+Type -> int
+Type -> double
+Type -> bool
+Type -> string
+FunctionDecl -> Type ident ( Formals ) StmtBlock
+Formals -> Type ident
+Formals -> Type ident , Formals
+StmtBlock -> { VariableDecl  Stmts }
+Stmts -> Stmt
+Stmts -> Stmt ; Stmts
+Stmt -> IfStmt
+Stmt -> assignStmt
+Stmt -> StmtBlock
+IfStmt -> if ( Expr ) Stmt
+assignStmt -> ident = Expr
+Expr  -> Factor + Factor
+Expr  -> Factor < Factor
+Expr  ->  Factor && Factor
+Expr -> Factor
+Factor -> Constant
+Factor ->  ident
+Factor  ->  (   Expr )
+Constant -> intConstant
+Constant -> doubleConstant
+Constant -> boolConstant
+Constant ->  stringConstant

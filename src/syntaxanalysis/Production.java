@@ -1,20 +1,38 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+package syntaxanalysis;
 
 public class Production {
     private Grammar[] grammars;
     private int count;
     private Production[] next;
+    private int nextCount;
+    private String move;
+    String repeated = "No";
+
+    public String getRepeated() {
+        return repeated;
+    }
+
+    public int getNextCount() {
+        return nextCount;
+    }
+
+    public void setNextCount(int nextCount) {
+        this.nextCount = nextCount;
+    }
+
+    public int getProductionNumber() {
+        return productionNumber;
+    }
+
+    public void setProductionNumber(int productionNumber) {
+        this.productionNumber = productionNumber;
+    }
+
+    private int productionNumber;
 
     public String getMove() {
         return move;
     }
-
-    private int nextCount;
-    private String move;
-    String repeated = "No";
 
     public void setRepeated() {
         this.repeated = "Yes";
