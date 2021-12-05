@@ -1,7 +1,6 @@
-import java.util.ArrayList;
+package syntaxanalysis;
+
 import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
 
 public class Grammar {
     private String head;
@@ -125,6 +124,7 @@ public class Grammar {
         int i = 0;
         for (;i<c;)
         {
+
            this.lookAhead[i] = lookAhead[i];
         i++;
         }
@@ -151,7 +151,7 @@ public class Grammar {
         this.head = head;
         int length = childrenList.length;
         this.childrenList = new String[length][30];
-        lookAhead = new String[50];
+        lookAhead = new String[500];
         childrenCount = 0;
         lookAheadCount = 0;
 //        Arrays.stream(childrenList).map(child -> this.childrenList[childrenCount++] = child );

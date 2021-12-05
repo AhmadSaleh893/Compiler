@@ -1,3 +1,5 @@
+package lexicalanalysis;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -52,7 +54,7 @@ public class Analyzer {
                 , "<=", ">"
                 , ">=", "="
                 , "==", "!="
-                , "&&", "||", "[]"
+                , "&&", "||", "[]", ","
                 , "!", ";", "[", "]", "(", ")", "{", "}", ".", "&", "|"
         );
 
@@ -111,6 +113,8 @@ public class Analyzer {
                 return String.valueOf('.');
             } else if (token.charAt(0) == ';')
                 return String.valueOf(';');
+            else if (token.charAt(0) == ',')
+                return String.valueOf(',');
             else {
                 return "Not_Found1 " + token;
             }
@@ -138,7 +142,9 @@ public class Analyzer {
         }
     }
 
-    private static Boolean isDigit(String element) {
+    public static Boolean isDigit(String element) {
+        if (element.equals(""))
+            return false;
         if (element.length() == 1 && element.charAt(0) == '0')
             return true;
         if (element.charAt(0) == '0' && (element.charAt(1) == 'x' || element.charAt(1) == 'X') )
@@ -260,7 +266,7 @@ public class Analyzer {
             if (hashMap.containsKey(element)) {
                 String type = hashMap.get(element);
                 if (type.equals("Keyword")) {
-                    String bind = TOKEN+element;
+                    String bind = TOKEN + element;
                     bufferedWriter.append(bind + "\n");
                     bufferedWriter.flush();
                 }
