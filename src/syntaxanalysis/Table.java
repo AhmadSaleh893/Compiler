@@ -33,35 +33,29 @@ public class Table {
         }
     }
 
-
     Node[] nodes;
 
     public Table() {
         nodes = new Node[productions.size()];
     }
 
-    class GrammarToSend
-    {
+    class GrammarToSend {
         List<Grammar> grammarsToSend;
         List<String> moves;
 
-        GrammarToSend(List<Grammar> grammars, List<String> moves)
-        {
+        GrammarToSend(List<Grammar> grammars, List<String> moves) {
             this.moves = moves;
             grammarsToSend = grammars;
         }
     }
 
-    private List<Grammar> reductionExist(Grammar[] myGrammars)
-    {
+    private List<Grammar> reductionExist(Grammar[] myGrammars) {
         List<Grammar> grammarsToSend = new ArrayList<>();
-        for (Grammar x : myGrammars)
-        {
+        for (Grammar x : myGrammars) {
             if (x == null)
                 break;
             String[] children = x.getChildrenList()[0];
-            if (children[children.length-1].equals("."))
-            {
+            if (children[children.length - 1].equals(".")) {
                 grammarsToSend.add(x);
             }
         }
@@ -89,7 +83,7 @@ public class Table {
                         String[][] childrenList = grammar.getChildrenList();
 
 
-                        int before = SyntaxAnalysis.beforeGrammarCount.get(grammar.getHead())-1;
+                        int before = SyntaxAnalysis.beforeGrammarCount.get(grammar.getHead()) - 1;
                         if (grammar.getChildrenCount() == 1) {
                             reduction += before + 1;
                         } else {
@@ -143,42 +137,38 @@ public class Table {
                 if (myGrammar.getHead().equals(SyntaxAnalysis.STARTER_GRAMMAR)) {
                     nodes[myProductionNumber].add(lookAhead[0], ACCEPT);
                 } else {
-                        String reduction = "r";
-                        Object f = SyntaxAnalysis.grammarSort.get(myGrammar.getHead());
-                        String[][] childrenList;
-                        if (f != null) {
-                            int index = (int) f;
-                            Grammar grammar = grammars[index];
+                    String reduction = "r";
+                    Object f = SyntaxAnalysis.grammarSort.get(myGrammar.getHead());
+                    String[][] childrenList;
+                    if (f != null) {
+                        int index = (int) f;
+                        Grammar grammar = grammars[index];
 
-                            childrenList = grammar.getChildrenList();
-                            int before = SyntaxAnalysis.beforeGrammarCount.get(grammar.getHead())-1;
-                            if (grammar.getChildrenCount() == 1)
-                            {
-                                reduction += before+1;
-                            }
-                            else
-                            {
-                                int count = 0;
-                                int cd = 0;
-                                for (String[] grandSon : childrenList) {
-                                    for (String[] v : myGrammar.getChildrenList()) {
-                                        count++;
-                                            if (equals(grandSon, v))
-                                            {
-                                                cd = 1;
-                                                break;
-                                            }
-                                    }
-                                    if (cd == 1)
+                        childrenList = grammar.getChildrenList();
+                        int before = SyntaxAnalysis.beforeGrammarCount.get(grammar.getHead()) - 1;
+                        if (grammar.getChildrenCount() == 1) {
+                            reduction += before + 1;
+                        } else {
+                            int count = 0;
+                            int cd = 0;
+                            for (String[] grandSon : childrenList) {
+                                for (String[] v : myGrammar.getChildrenList()) {
+                                    count++;
+                                    if (equals(grandSon, v)) {
+                                        cd = 1;
                                         break;
+                                    }
                                 }
-                                reduction += before + count;
+                                if (cd == 1)
+                                    break;
                             }
-
-
+                            reduction += before + count;
                         }
-                        for (String myLookAhead : lookAhead)
-                            nodes[myProductionNumber].add(myLookAhead, reduction);
+
+
+                    }
+                    for (String myLookAhead : lookAhead)
+                        nodes[myProductionNumber].add(myLookAhead, reduction);
                 }
             }
         }

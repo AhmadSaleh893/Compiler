@@ -18,33 +18,28 @@ public class Grammar {
         if (childrenCount != grammar.childrenCount)
             return false;
 
-        if (!head.equals(grammar.head))
-        {
+        if (!head.equals(grammar.head)) {
             return false;
         }
 
-        for (int i = 0; i < childrenCount; i++)
-        {
+        for (int i = 0; i < childrenCount; i++) {
             String[] child1 = childrenList[i];
             String[] child2 = grammar.childrenList[i];
             if (child1 == child2 && child1 == null)
                 break;
             if (child1.length != child2.length)
                 return false;
-                for (int j = 0; j < child1.length; j++)
-                {
-                    if (!child1[j].equals(child2[j]))
-                    {
-                        return false;
-                    }
+            for (int j = 0; j < child1.length; j++) {
+                if (!child1[j].equals(child2[j])) {
+                    return false;
                 }
+            }
         }
 
         if (lookAheadCount != grammar.getLookAheadCount())
             return false;
 
-        for (int i = 0; i < lookAheadCount; i++)
-        {
+        for (int i = 0; i < lookAheadCount; i++) {
             String a = lookAhead[i];
             String b = grammar.lookAhead[i];
             if (!a.equals(b))
@@ -86,18 +81,16 @@ public class Grammar {
     public String[] getLookAhead() {
         return lookAhead;
     }
-    public void resizeLookAhead(String newItem)
-    {
-        String[] newStrings = new String[lookAheadCount+1];
+
+    public void resizeLookAhead(String newItem) {
+        String[] newStrings = new String[lookAheadCount + 1];
         int i = 0;
-        if (lookAheadCount == 0)
-        {
+        if (lookAheadCount == 0) {
             lookAhead = new String[1];
             lookAhead[0] = newItem;
             return;
         }
-        for (String v : lookAhead)
-        {
+        for (String v : lookAhead) {
             if (v == null)
                 break;
             newStrings[i++] = v;
@@ -106,27 +99,25 @@ public class Grammar {
         this.lookAheadCount++;
         lookAhead = newStrings;
     }
+
     public void setLookAhead(String[] lookAhead) {
-        if (lookAhead == null)
-        {
+        if (lookAhead == null) {
             this.lookAhead = null;
             return;
         }
         int c = 0;
 
-        for (String cc : lookAhead)
-        {
+        for (String cc : lookAhead) {
             if (cc == null)
                 break;
             c++;
         }
         this.lookAhead = new String[c];
         int i = 0;
-        for (;i<c;)
-        {
+        for (; i < c; ) {
 
-           this.lookAhead[i] = lookAhead[i];
-        i++;
+            this.lookAhead[i] = lookAhead[i];
+            i++;
         }
         this.lookAheadCount = this.lookAhead.length;
     }
@@ -147,7 +138,7 @@ public class Grammar {
         this.lookAheadCount = lookAheadCount;
     }
 
-    public Grammar(String head, String[][] childrenList,  String[] lookAhead) {
+    public Grammar(String head, String[][] childrenList, String[] lookAhead) {
         this.head = head;
         int length = childrenList.length;
         this.childrenList = new String[length][30];
@@ -155,31 +146,26 @@ public class Grammar {
         childrenCount = 0;
         lookAheadCount = 0;
 //        Arrays.stream(childrenList).map(child -> this.childrenList[childrenCount++] = child );
-        for (int i = 0; i < childrenList.length;i++)
-        {
+        for (int i = 0; i < childrenList.length; i++) {
             String[] child = childrenList[i];
             this.childrenList[childrenCount++] = child;
         }
-        Arrays.stream(lookAhead).map(element -> this.lookAhead[lookAheadCount++] = element );
+        Arrays.stream(lookAhead).map(element -> this.lookAhead[lookAheadCount++] = element);
     }
 
-    public Grammar(Grammar grammar)
-    {
+    public Grammar(Grammar grammar) {
         this.head = new String();
-        for (int i = 0 ; i< grammar.head.length();i++)
-        {
+        for (int i = 0; i < grammar.head.length(); i++) {
             this.head += grammar.head.charAt(i);
         }
         int i = 0;
         this.childrenList = new String[grammar.childrenCount][];
-        for (String[] a : grammar.childrenList)
-        {
+        for (String[] a : grammar.childrenList) {
             if (a == null)
                 break;
             this.childrenList[i] = new String[a.length];
             int j = 0;
-            for (String b : a)
-            {
+            for (String b : a) {
                 if (b == null)
                     break;
                 this.childrenList[i][j] = b;
@@ -188,7 +174,7 @@ public class Grammar {
             i++;
         }
         this.childrenCount = grammar.childrenCount;
-        i=0;
+        i = 0;
         this.lookAhead = new String[grammar.lookAheadCount];
         if (grammar.lookAhead != null) {
             for (String a : grammar.lookAhead) {
@@ -196,8 +182,7 @@ public class Grammar {
                     break;
                 this.lookAhead[i++] = a;
             }
-        }
-        else
+        } else
             lookAhead = null;
         this.lookAheadCount = grammar.lookAheadCount;
     }

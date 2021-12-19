@@ -10,10 +10,6 @@ import java.util.Scanner;
 
 public class Analyzer {
 
-    public static HashMap<String, String> getHashMap() {
-        return hashMap;
-    }
-    
     private static HashMap<String, String> hashMap;
     private static HashMap<Integer, Character> hash = new HashMap();
     private final static String KEYWORD = "Keyword";
@@ -70,9 +66,8 @@ public class Analyzer {
             }
         }
 
-        for (int i = 48; i < 58; i++)
-        {
-            hash.put(i, (char)i);
+        for (int i = 48; i < 58; i++) {
+            hash.put(i, (char) i);
         }
     }
 
@@ -147,13 +142,11 @@ public class Analyzer {
             return false;
         if (element.length() == 1 && element.charAt(0) == '0')
             return true;
-        if (element.charAt(0) == '0' && (element.charAt(1) == 'x' || element.charAt(1) == 'X') )
+        if (element.charAt(0) == '0' && (element.charAt(1) == 'x' || element.charAt(1) == 'X'))
             return true;
 
-        for (int i = 0; i < element.length(); i++)
-        {
-            if ( element.charAt(i) != '.' && element.charAt(i) != '+' && element.charAt(i) != '-' && element.charAt(i) != 'E' && element.charAt(i) != 'e' && !hash.containsKey((int)element.charAt(i)))
-            {
+        for (int i = 0; i < element.length(); i++) {
+            if (element.charAt(i) != '.' && element.charAt(i) != '+' && element.charAt(i) != '-' && element.charAt(i) != 'E' && element.charAt(i) != 'e' && !hash.containsKey((int) element.charAt(i))) {
                 return false;
             }
         }
@@ -238,24 +231,20 @@ public class Analyzer {
                         }
                         if (line.charAt(i - 1) == '.') {
 
-                            if (element.length()>0 && !isDigit(element))
-                            {
+                            if (element.length() > 0 && !isDigit(element)) {
                                 break;
-                            }
-                            else
+                            } else
                                 bind1 = "";
                         }
 
                         if (curr != '_' && line.charAt(i - 1) != '.' && exceed == false)
                             break;
-                        if (curr == '+' || curr == '-')
-                        {
+                        if (curr == '+' || curr == '-') {
                             exceed = false;
                             bind1 = "";
                         }
                     }
-                    if (!element.isEmpty() && isDigit(element) && i != line.length() && curr == 'E' && element.contains("."))
-                    {
+                    if (!element.isEmpty() && isDigit(element) && i != line.length() && curr == 'E' && element.contains(".")) {
                         exceed = true;
                     }
 
@@ -273,10 +262,9 @@ public class Analyzer {
             } else if (!element.isEmpty() && !element.isBlank() && !element.equals(" ")) {
                 String bind;
                 Boolean v = false;
-                if (element.contains(".") && !isDigit(element) )
-                {
+                if (element.contains(".") && !isDigit(element)) {
                     String x[] = element.split("\\.");
-                    v = isDigit(x[x.length-1]);
+                    v = isDigit(x[x.length - 1]);
                 }
                 if (isDigit(element))
                     v = true
@@ -288,14 +276,14 @@ public class Analyzer {
                     Boolean is_double = element.contains(".");
                     if (is_double) {
 
-                        if (element.charAt(0) == '.' ) {
-                            bind = "Not_Valid_Double("+element+")";
+                        if (element.charAt(0) == '.') {
+                            bind = "Not_Valid_Double(" + element + ")";
                             bufferedWriter.append(bind + "\n");
                             bufferedWriter.flush();
                             not_valid = 1;
                         }
-                        if (element.charAt(element.length()-1) == '.')
-                            element+='0';
+                        if (element.charAt(element.length() - 1) == '.')
+                            element += '0';
                         bind = String.format(DOUBLE, element);
                     } else {
                         bind = String.format(INT, element);
@@ -313,7 +301,7 @@ public class Analyzer {
                         String split[] = element.split("\\.");
                         if (split[0].isEmpty()) {
 
-                            bufferedWriter.append("T_" + (int)'.' + "\n");
+                            bufferedWriter.append("T_" + (int) '.' + "\n");
                             if (!isDigit(split[1]))
                                 bind = String.format(IDENTIFIER, split[1]);
                             else
@@ -326,7 +314,7 @@ public class Analyzer {
                             else
                                 bind = String.format(DOUBLE, split[0]);
                             bufferedWriter.append(bind + "\n");
-                            bufferedWriter.append("T_" + (int)'.' + "\n");
+                            bufferedWriter.append("T_" + (int) '.' + "\n");
                             if (!isDigit(split[1]))
                                 bind = String.format(IDENTIFIER, split[1]);
                             else
@@ -334,7 +322,7 @@ public class Analyzer {
                             bufferedWriter.append(bind + "\n");
                             bufferedWriter.flush();
                         }
-                    }else {
+                    } else {
                         bind = String.format(IDENTIFIER, element);
                         bufferedWriter.append(bind + "\n");
                         bufferedWriter.flush();

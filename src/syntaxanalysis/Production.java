@@ -16,10 +16,6 @@ public class Production {
         return nextCount;
     }
 
-    public void setNextCount(int nextCount) {
-        this.nextCount = nextCount;
-    }
-
     public int getProductionNumber() {
         return productionNumber;
     }
@@ -47,17 +43,14 @@ public class Production {
         if (count != that.count)
             return false;
         int x = 0;
-        for (Grammar yy : grammars)
-        {
+        for (Grammar yy : grammars) {
             if (yy == null)
                 break;
             int z = 0;
-            for (Grammar gm : that.grammars)
-            {
+            for (Grammar gm : that.grammars) {
                 if (gm == null)
                     break;
-                if (gm.equals(yy))
-                {
+                if (gm.equals(yy)) {
                     x++;
                     z = 1;
                     break;
@@ -70,8 +63,7 @@ public class Production {
         else return false;
     }
 
-    public Production()
-    {
+    public Production() {
         grammars = new Grammar[60];
         count = 0;
         next = new Production[50];
@@ -93,14 +85,12 @@ public class Production {
         move = "";
     }
 
-    public boolean checkExist(String head)
-    {
-        if(this.count == 0)
+    public boolean checkExist(String head) {
+        if (this.count == 0)
             return false;
-        for (Grammar gm : grammars)
-        {
+        for (Grammar gm : grammars) {
             if (gm == null)
-               break;
+                break;
             if (gm.getHead().equals(head))
                 return true;
         }
@@ -111,20 +101,8 @@ public class Production {
         return grammars;
     }
 
-    public void setGrammars(Grammar[] grammars) {
-        this.grammars = grammars;
-    }
-
     public void setMove(String move) {
         this.move = move;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
     }
 
     public Production[] getNext() {
@@ -136,10 +114,7 @@ public class Production {
         this.next[nextCount++] = next;
     }
 
-
-   public void add(Grammar grammar)
-   {
-       grammars[count++] = grammar;
-   }
-
+    public void add(Grammar grammar) {
+        grammars[count++] = grammar;
+    }
 }

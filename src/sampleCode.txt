@@ -1,12 +1,1 @@
-int func ( int saample )
-{
-
-/*
-
-cascasdsadd
-*/
- int rar ;
-if ( asd < 5 )
-	kjhdusid = z
-
-}
+int x ;
