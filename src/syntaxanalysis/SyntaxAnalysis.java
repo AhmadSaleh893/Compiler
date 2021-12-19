@@ -24,7 +24,7 @@ public class SyntaxAnalysis {
         epsilon = new HashMap<>();
         productions = new ArrayList<>();
 
-        getKey.put(0,"Program'");
+        getKey.put(0, "Program'");
         beforeGrammarCount.put("Program'", 0);
         grammarSort.put("Program'", count);
         grammars[count++] = new Grammar("Program'", new String[][]
@@ -32,7 +32,7 @@ public class SyntaxAnalysis {
                         new String[]{".", "Program"}
                 }, null);
 
-        getKey.put(1,"Program");
+        getKey.put(1, "Program");
         beforeGrammarCount.put("Program", 1);
         grammarSort.put("Program", count);
         grammars[count++] = new Grammar("Program", new String[][]
@@ -40,7 +40,7 @@ public class SyntaxAnalysis {
                         new String[]{".", "Decls"}
                 }, null);
 
-        getKey.put(2,"Decls");
+        getKey.put(2, "Decls");
         beforeGrammarCount.put("Decls", 2);
         grammarSort.put("Decls", count);
         grammars[count++] = new Grammar("Decls", new String[][]
@@ -71,7 +71,7 @@ public class SyntaxAnalysis {
         grammarSort.put("VariableDecl", count);
         grammars[count++] = new Grammar("VariableDecl", new String[][]
                 {
-                        new String[]{".", "Type", "ident" , ";"}
+                        new String[]{".", "Type", "ident", ";"}
                 }, null);
 
         getKey.put(7, "Type");
@@ -99,7 +99,7 @@ public class SyntaxAnalysis {
         grammars[count++] = new Grammar("Formals", new String[][]
                 {
                         new String[]{".", "Type", "ident"}
-                        , new String[]{".", "Type", "ident" , ",", "Formals"}
+                        , new String[]{".", "Type", "ident", ",", "Formals"}
                 }, null);
 
         getKey.put(14, "StmtBlock");
@@ -178,7 +178,7 @@ public class SyntaxAnalysis {
                 }, null);
 
         findTerminals();
-        List<Production> b = findDFAs();
+        findDFAs();
     }
 
     private static List<Production> findDFAs() {
@@ -201,28 +201,23 @@ public class SyntaxAnalysis {
             }
         }
 
-       terminals.put("$", 1);
+        terminals.put("$", 1);
         return productions;
     }
 
-    private static String[] findTerminals()
-    {
+    private static String[] findTerminals() {
         String[] terminals = new String[100];
-        for (int i = 0 ; i < count; i++)
-        {
+        for (int i = 0; i < count; i++) {
             Grammar grammar = grammars[i];
 
-            for (String[] children : grammar.getChildrenList())
-            {
+            for (String[] children : grammar.getChildrenList()) {
                 if (children != null)
-                for (String grandSon : children)
-                {
-                    if (grandSon!=null)
-                    if (!grandSon.equals(".") && !grammarSort.containsKey(grandSon))
-                    {
-                        SyntaxAnalysis.terminals.put(grandSon, 1);
+                    for (String grandSon : children) {
+                        if (grandSon != null)
+                            if (!grandSon.equals(".") && !grammarSort.containsKey(grandSon)) {
+                                SyntaxAnalysis.terminals.put(grandSon, 1);
+                            }
                     }
-                }
             }
         }
 
@@ -254,8 +249,7 @@ public class SyntaxAnalysis {
                 String[][] childrenList = gm.getChildrenList();
 //                int iq = 0;
                 for (String[] children : childrenList) {
-                    if (!checker.isEmpty() && !terminals.containsKey(checker) && !grammarSort.containsKey(checker))
-                    {
+                    if (!checker.isEmpty() && !terminals.containsKey(checker) && !grammarSort.containsKey(checker)) {
                         terminals.put(checker, 1);
                     }
                     if (children == null)
@@ -264,7 +258,7 @@ public class SyntaxAnalysis {
                         int j = 0;
                         for (String grandSon : children) {
 
-                            if (grandSon.equals(".") && j + 1 < children.length && !children[j+1].equals("epsilon") && (checker.equals("") || children[j + 1].equals(checker)) && (!itemsExist.containsKey(children[j + 1]))) {
+                            if (grandSon.equals(".") && j + 1 < children.length && !children[j + 1].equals("epsilon") && (checker.equals("") || children[j + 1].equals(checker)) && (!itemsExist.containsKey(children[j + 1]))) {
                                 checker = children[++j];
                                 if (gm.getHead().equals(yy.getHead()))
                                     numberOfChildren++;
@@ -331,10 +325,8 @@ public class SyntaxAnalysis {
                                         }
                                         entered = true;
                                         boolean exist = false;
-                                        for (int ccq = 0; ccq < grammarsToWorkCount; ccq++)
-                                        {
-                                            if (grammarsToWork[ccq].equals(newGrammar))
-                                            {
+                                        for (int ccq = 0; ccq < grammarsToWorkCount; ccq++) {
+                                            if (grammarsToWork[ccq].equals(newGrammar)) {
                                                 exist = true;
                                                 break;
                                             }
@@ -349,10 +341,8 @@ public class SyntaxAnalysis {
                                             for (Grammar pp : k.getGrammars()) {
                                                 if (pp == null)
                                                     break;
-                                                for (int ccd = 0; ccd < grammarsToWorkCount; ccd++)
-                                                {
-                                                    if (grammarsToWork[ccd].equals(pp))
-                                                    {
+                                                for (int ccd = 0; ccd < grammarsToWorkCount; ccd++) {
+                                                    if (grammarsToWork[ccd].equals(pp)) {
                                                         exist = true;
                                                         break;
                                                     }
@@ -367,13 +357,10 @@ public class SyntaxAnalysis {
 
                                 }
 
-                                if (!entered)
-                                {
+                                if (!entered) {
                                     boolean exist = false;
-                                    for (int ccq = 0; ccq < grammarsToWorkCount; ccq++)
-                                    {
-                                        if (grammarsToWork[ccq].equals(newGrammar))
-                                        {
+                                    for (int ccq = 0; ccq < grammarsToWorkCount; ccq++) {
+                                        if (grammarsToWork[ccq].equals(newGrammar)) {
                                             exist = true;
                                             break;
                                         }
@@ -406,12 +393,10 @@ public class SyntaxAnalysis {
                 Production oldProduction = checkIfRepeated(newProduction);
 
                 if (oldProduction != null) {
-                    if (oldProduction.equals(production))
-                    {
+                    if (oldProduction.equals(production)) {
                         oldProduction.setRepeated();
                         oldProduction.setNext(oldProduction);
-                    }
-                    else
+                    } else
                         production.setNext(oldProduction);
 //                    productions.add(oldProduction);
                 } else {
@@ -427,7 +412,7 @@ public class SyntaxAnalysis {
         }
     }
 
-    private static HashMap<Grammar[],Integer> leftRecursive = new HashMap<>();
+    private static HashMap<Grammar[], Integer> leftRecursive = new HashMap<>();
 
     private static Production checkIfRepeated(Production repeatedProduction) {
         for (Production production : productions) {
@@ -595,7 +580,6 @@ public class SyntaxAnalysis {
     private static HashMap<String, Integer> getDoneFromItFindFirstOfGrammar = new HashMap<>();
 
     private static Production findFirstOfGrammar(String element, Production production, String[] afterDot) {
-        int grammarIndex = 0;
 
         if (!grammarSort.containsKey(element)) {
             return null;
@@ -630,7 +614,7 @@ public class SyntaxAnalysis {
                             break;
                         }
                     }
-                    if(ccc == 1)
+                    if (ccc == 1)
                         lookAhead[n[0]++] = ll;
                 }
                 doneFromIt = new HashMap<>();
@@ -646,8 +630,8 @@ public class SyntaxAnalysis {
                         break;
                     }
                 }
-                    if (ccc == 1)
-                        lookAhead[n[0]++] = lookAheadElement;
+                if (ccc == 1)
+                    lookAhead[n[0]++] = lookAheadElement;
 
             }
         }
@@ -660,7 +644,7 @@ public class SyntaxAnalysis {
             if (children == null)
                 break;
             afterDot = new String[500];
-            for (int i = 0; i  < children.length; i++) {
+            for (int i = 0; i < children.length; i++) {
 
                 int afterDotCount = 0;
                 String grandSon = children[i];

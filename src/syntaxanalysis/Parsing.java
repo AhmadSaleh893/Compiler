@@ -7,10 +7,11 @@ import java.util.*;
 import static syntaxanalysis.SyntaxAnalysis.*;
 
 public class Parsing {
+
     Stack stack;
     Table.Node[] nodes;
-    public Parsing(Table.Node[] nodes)
-    {
+
+    public Parsing(Table.Node[] nodes) {
         this.nodes = nodes;
         stack = new Stack();
         stack.add("$");
@@ -22,19 +23,17 @@ public class Parsing {
     private final static String INT = "INT";
     private final static String DOUBLE = "DOUBLE";
     private final static String TOKEN = "T";
-    public Boolean checkTokens(List<String> tokens)
-    {
+
+    public Boolean checkTokens(List<String> tokens) {
         tokens.add("$");
-        for (int i = 0; i < tokens.size();) {
+        for (int i = 0; i < tokens.size(); ) {
             String myToken = tokens.get(i);
             String[] both = null;
             String value;
 
-            if (myToken.charAt(0) == '$')
-            {
+            if (myToken.charAt(0) == '$') {
                 value = "$";
-            }
-            else {
+            } else {
                 if (myToken.charAt(0) != 'T') {
                     both = myToken.split("\\(");
                     value = both[1].split("\\)")[0];
@@ -63,14 +62,12 @@ public class Parsing {
             if (stackValue instanceof Integer) {
                 number = (int) stackValue;
                 String operation = "";
-                if (Analyzer.isDigit(value))
-                {
-                    value = String.valueOf((char)Integer.parseInt(value));
+                if (Analyzer.isDigit(value)) {
+                    value = String.valueOf((char) Integer.parseInt(value));
                 }
 
                 operation = nodes[number].getHashMap().get(value);
-                if (operation == null)
-                {
+                if (operation == null) {
                     System.out.println();
                     System.out.println("ATTENTION!!! An ERROR:");
                     System.out.println();
@@ -83,57 +80,50 @@ public class Parsing {
                     System.out.println("Accepted");
                     return true;
                 }
-                if (op == 's')
-                {
+                if (op == 's') {
 
                     stack.add(value);
                     stack.add(Integer.parseInt(operation.split("s")[1]));
                     tokens.remove(myToken);
 //                    i--;
-                }
-                else
-                    if (op == 'r')
-                    {
-                        int n = Integer.parseInt(operation.split("r")[1]);
-                        System.out.print("Reduce using rule (" + n + ")" );
+                } else if (op == 'r') {
+                    int n = Integer.parseInt(operation.split("r")[1]);
+                    System.out.print("Reduce using rule (" + n + ")");
 
-                        String[] children = null;
+                    String[] children = null;
 
-                        Grammar grammar = null;
-                        String[][] list = null;
-                        int qw;
-                        for (qw = n; qw >= 0; qw--)
-                        {
-                            if (getKey.containsKey(qw)) {
-                                String z = getKey.get(qw);
-                                int f = grammarSort.get(z);
-                                grammar = grammars[f];
-                                list = grammar.getChildrenList();
-                                break;
-                            }
+                    Grammar grammar = null;
+                    String[][] list = null;
+                    int qw;
+                    for (qw = n; qw >= 0; qw--) {
+                        if (getKey.containsKey(qw)) {
+                            String z = getKey.get(qw);
+                            int f = grammarSort.get(z);
+                            grammar = grammars[f];
+                            list = grammar.getChildrenList();
+                            break;
                         }
-
-                        for (int zx = 0; zx <= n - qw; zx++)
-                        {
-                            children = list[zx];
-                        }
-
-                        System.out.print( "  " + grammar.getHead() + " ->");
-                        for (String x : children) {
-                            if (!x.equals("."))
-                                System.out.print(" " + x + " ");
-                        }
-                        System.out.println();
-                        int grandSonCount = children.length - 1;
-                        for (int j = 0; j < grandSonCount * 2; j++)
-                        {
-                            stack.pop();
-                        }
-                        int reductionNumberHelper = (int)stack.peek();
-                        stack.add(grammar.getHead());
-                        String nonTerminalNumber = nodes[reductionNumberHelper].getHashMap().get(grammar.getHead());
-                        stack.add(Integer.parseInt(nonTerminalNumber));
                     }
+
+                    for (int zx = 0; zx <= n - qw; zx++) {
+                        children = list[zx];
+                    }
+
+                    System.out.print("  " + grammar.getHead() + " ->");
+                    for (String x : children) {
+                        if (!x.equals("."))
+                            System.out.print(" " + x + " ");
+                    }
+                    System.out.println();
+                    int grandSonCount = children.length - 1;
+                    for (int j = 0; j < grandSonCount * 2; j++) {
+                        stack.pop();
+                    }
+                    int reductionNumberHelper = (int) stack.peek();
+                    stack.add(grammar.getHead());
+                    String nonTerminalNumber = nodes[reductionNumberHelper].getHashMap().get(grammar.getHead());
+                    stack.add(Integer.parseInt(nonTerminalNumber));
+                }
             }
 
 
@@ -141,5 +131,4 @@ public class Parsing {
 
         return false;
     }
-
 }

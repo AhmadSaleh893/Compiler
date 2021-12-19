@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Compiler {
-    public static void main(String args[]) throws IOException {
+    public static void main(String[] args) throws IOException {
         Scanner in = new Scanner(System.in);
         System.out.println("Please Enter Sample Code Path (required java code):");
         String sampleCodeName = in.next();//input: enter the desired file path
@@ -24,25 +24,22 @@ public class Compiler {
         File sampleCode = new File(sampleCodeName);//sample code has the java code
         File openFile = new File("C:\\Users\\Ahmad\\Desktop\\tokens.txt");
         Desktop desktop = Desktop.getDesktop();
-        BufferedWriter bufferedWriter = null;
-        Boolean open = false;
+        BufferedWriter bufferedWriter;
+        boolean open = false;
         try {
             FileWriter fileWriter = new FileWriter(openFile);//output file
             bufferedWriter = new BufferedWriter(fileWriter);
-            Boolean stillComment = false; // to catch multiple comment (/*)
+            boolean stillComment = false; // to catch multiple comment (/*)
             if (sampleCode.exists()) {
                 List<String> lines = Files.readAllLines(Path.of(sampleCode.getPath()));
                 open = true;
                 Analyzer.init();
                 for (String line : lines) {
                     line = line.trim();
-                    if (line != null && !line.equals("")) {
+                    if (!line.isEmpty()) {
                         if (line.charAt(0) == '/' && line.charAt(1) == '*' || stillComment) {
-                            stillComment = true;
-                            if (line.contains("*/")) {
-                                stillComment = false;
-                            }
-                        } else if (stillComment == false && !(line.charAt(0) == '/' && line.charAt(1) == '/')) {
+                            stillComment = !line.contains("*/");
+                        } else if (!(line.charAt(0) == '/' && line.charAt(1) == '/')) {
                             Analyzer.analyzeLine(line, fileWriter);
                         }
                     }
@@ -54,7 +51,7 @@ public class Compiler {
 
                 SyntaxAnalysis.init();
                 Table table = new Table();
-                Table.Node nodes[] = table.findParseTable();
+                Table.Node[] nodes = table.findParseTable();
                 Parsing parse = new Parsing(nodes);
 
                 List<String> tokens = Files.readAllLines(Path.of(openFile.getPath()));
@@ -62,12 +59,9 @@ public class Compiler {
 
             } else // if sample code not exists
             {
-                open = false;
                 System.out.println("Sorry the path or the file name is incorrect");
             }
         } catch (IOException e) {
-//            System.out.println(e.getMessage());
-            bufferedWriter.close();
             if (open)
                 desktop.open(openFile);
         }
