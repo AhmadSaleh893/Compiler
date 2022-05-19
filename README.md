@@ -20,6 +20,6 @@
   <h5> This phase done by LR(1) Parser</h5>
   <p>--------------------------------------</p>
   <p>This is a decumentation of how LR(1) is working :</p>
-     <a href="http://www.cs.ecu.edu/karl/5220/spr16/Notes/Bottom-up/lr1.html"></a>
+     http://www.cs.ecu.edu/karl/5220/spr16/Notes/Bottom-up/lr1.html"
 
 </html>
