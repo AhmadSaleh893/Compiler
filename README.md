@@ -18,6 +18,7 @@
   </h6> 
   
   <h5> This phase done by LR(1) Parser</h5>
-  
+  <p>--------------------------------------</p>
+  <p>This is a decumentation of how LR(1) is working</p>
 
 </html>
