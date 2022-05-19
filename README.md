@@ -19,6 +19,14 @@
   
   <h5> This phase done by LR(1) Parser</h5>
   
-  <p>--------------------------------------------</p>
+  <p>-------------------------------------------------------------------</p>
   
+  <h4>Code Overview:</h4>
+  
+  <p>1- lexical analysis package has Analyzer file which is responsible of extracting tokens.</p>
+  <br>
+  <p> after that tokens goes for Syntax Analysis</p>
+  <br>
+  
+  <p>2- syntax analysis package has many layers: <br></p>
 </html>
