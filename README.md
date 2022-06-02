@@ -11,7 +11,7 @@
     .
     .
   </h6>
-<h4> 2- Syntaxct Analysis: </h4>
+<h4> 2- Syntax Analysis: </h4>
   
   <h6>
       Syntax analysis is the second pahse after lexical where tokens be read, It checks the syntactical structure of the given input, whether the given input is in the correct syntax.
